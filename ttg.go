@@ -376,5 +376,7 @@ func ttg() Template {
 	basic["fields"].(Map)["ratio"] = Map{"selector": "//font[contains(text(),'分享率')]/following-sibling::font[1]"}
 	basic["seeding_zero_is_complete"] = true
 
+	t.RSS.Pages = []string{"/rsstools.php"}
+	t.RSS.Generate = Map{"path": "/rsstools.php", "method": "GET", "parser": "XPath"}
 	return t
 }

@@ -284,17 +284,8 @@ func ssd() Template {
 				},
 			},
 			"description": Map{
-				"selector": "td.embedded > div.torrent-smalldescr > span",
-				"remove":   "span,a,img,font,b",
-				"filters": []any{
-					Map{
-						"name": "split",
-						"args": []any{
-							"\n",
-							-1,
-						},
-					},
-				},
+				"selector": "table.torrentname td.embedded > div.torrent-smalldescr",
+				"remove":   ".torrent-tag,a,img,font,b",
 			},
 			"labels": Map{
 				"selector": "td.embedded > div.torrent-smalldescr > a > span",

@@ -371,5 +371,10 @@ func ttg() Template {
 			"/userdetails.php?id={userId}",
 		},
 	}
+	basic := t.Definition["requests"].(Map)["user_basic_info"].(Map)
+	basic["fields"].(Map)["seeding"] = Map{"selector": "//img[@alt='做种中']/following-sibling::font[1]"}
+	basic["fields"].(Map)["ratio"] = Map{"selector": "//font[contains(text(),'分享率')]/following-sibling::font[1]"}
+	basic["seeding_zero_is_complete"] = true
+
 	return t
 }

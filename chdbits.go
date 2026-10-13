@@ -163,5 +163,11 @@ func chdbits() Template {
 			},
 		},
 	}
+	search := t.Definition["requests"].(Map)["search"].(Map)
+	params := search["params"].(Map)
+	for key, value := range map[string]string{"incldead": "0", "inclbookmarked": "0", "search_area": "0", "search_mode": "0", "spstate": "0"} {
+		params[key] = []any{value}
+	}
+
 	return t
 }

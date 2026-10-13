@@ -75,7 +75,7 @@ func basic(id, name, domain string) Template {
 		ID:      id,
 		Name:    name,
 		Domain:  domain,
-		Version: "1.1.0",
+		Version: "1.1.1",
 		IconURL: domain + "/favicon.ico",
 		Fields:  cookieFields(),
 		Definition: Map{

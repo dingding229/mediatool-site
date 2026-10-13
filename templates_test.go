@@ -30,3 +30,15 @@ func TestCompiledSiteDefinitions(t *testing.T) {
 		t.Fatal(seen)
 	}
 }
+
+func TestEmbeddedIdentityIcons(t *testing.T) {
+	for _, site := range All() {
+		raw, ok := Icon(site.ID)
+		if !ok || len(raw) < 22 || len(raw) > 262144 || string(raw[:4]) != "\x00\x00\x01\x00" {
+			t.Fatal(site.ID, "missing valid ICO")
+		}
+	}
+	if _, ok := Icon("../../private"); ok {
+		t.Fatal("invalid icon path accepted")
+	}
+}

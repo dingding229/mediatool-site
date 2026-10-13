@@ -19,7 +19,8 @@ func promotionContract() Map {
 }
 func blockedSeedboxFactor() Map {
 	return Map{
-		"selector": ".seed-box-policy-download.is-blocked",
+		"selector":  ".seed-box-policy-download.is-blocked",
+		"attribute": "class",
 		"filters": []any{
 			Map{"name": "not_blank", "args": []any{1, ""}},
 		},

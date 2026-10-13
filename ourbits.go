@@ -149,5 +149,7 @@ func ourbits() Template {
 			},
 		},
 	}
+	t.RSS.FormFeedPath = "/torrentrss.php"
+	t.RSS.FormFeedParams = Map{"linktype": []any{"dl"}}
 	return t
 }

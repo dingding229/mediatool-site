@@ -377,6 +377,6 @@ func ttg() Template {
 	basic["seeding_zero_is_complete"] = true
 
 	t.RSS.Pages = []string{"/rsstools.php"}
-	t.RSS.Generate = Map{"path": "/rsstools.php", "method": "GET", "parser": "XPath"}
+	t.RSS.Generate = Map{"path": "/rsstools.php", "method": "GET", "parser": "XPath", "check_all_prefix": "c"}
 	return t
 }

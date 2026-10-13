@@ -14,8 +14,10 @@ type Field struct {
 	Required bool   `json:"required"`
 }
 type RSS struct {
-	Pages    []string
-	Generate Map
+	Pages          []string
+	Generate       Map
+	FormFeedPath   string
+	FormFeedParams Map
 }
 type Template struct {
 	ID         string  `json:"id"`

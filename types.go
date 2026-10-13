@@ -49,10 +49,10 @@ func All() []Template {
 	templates := []Template{hdsky(), ourbits(), chdbits(), ssd(), ttg(), ubits()}
 	for i := range templates {
 		rule := templates[i].Definition["requests"].(Map)["search"].(Map)
-		rule["promotion"] = Map{"normal_factor": 1, "marker_selector": "[class*='pro_'], [class*='torrent-pro-'], img[alt*='%'], img[alt*='Free'], img[alt*='free'], img[alt*='FREE'], .seed-box-policy-download", "known_markers": []any{"pro_free", "pro_free2up", "pro_50pctdown", "pro_50pctdown2up", "pro_30pctdown", "pro_2up", "pro_twoup", "torrent-pro-icon", "torrent-pro-free", "torrent-pro-twoupfree", "torrent-pro-halfdown", "torrent-pro-twouphalfdown", "torrent-pro-thirtypercent", "torrent-pro-refund-left", "torrent-pro-refund-right", "seed-box-policy-status", "seed-box-policy-download", "is-blocked", "is-limited", "is-unlimited"}}
+		rule["promotion"] = promotionContract()
 		if templates[i].ID == "ubits" {
 			factor := rule["fields"].(Map)["downloadvolumefactor"].(Map)
-			factor["any"] = append([]any{Map{"selector": ".seed-box-policy-download.is-blocked", "filters": []any{Map{"name": "not_blank", "args": []any{1, ""}}}}}, factor["any"].([]any)...)
+			factor["any"] = append([]any{blockedSeedboxFactor()}, factor["any"].([]any)...)
 		}
 	}
 	return templates

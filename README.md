@@ -1,4 +1,4 @@
-# Media Tool 精简站点模板
+# Media Tool 站点模板
 
 更新：2026-10-13。六个独立JSON模板仅保留主程序需要的功能，无需公共配置继承；旧格式common参数不再使用。模板不是插件，不包含Cookie、Passkey、用户ID或API密钥。索引为`index.json`。
 
@@ -47,6 +47,6 @@ index.json的catalogVersion为1，repository固定本仓库；每项具有id/nam
 
 运行`go test ./internal/modules/sites -run 'TestMinimalTemplates|TestSummary|TestTemplateIndex|TestHDSKYMinimal'`。样本是自有合成HTML和受控transport；覆盖真实模板加载、登录拒绝、电影/剧集标题、促销/H&R、取种、分页、空结果/挑战、账号指标、列表和汇总统计、异常数字与请求边界。不访问PT站点、不下载真实种子。
 
-这五个新模板本轮**没有真实账号实测**；不将合成页面验证称为站点验收完成。HDSKY原站点已有前轮只读实测，但精简模板本身也不冒充新实测。
+这五个新模板本轮**没有真实账号实测**；不将合成页面验证称为站点验收完成。HDSKY原站点已有前轮只读实测，但模板本身也不冒充新实测。
 
-选择器精简自mantou568/pre-dessert-sites提交`37bf5c5064ae437f54e26b57406ca84d480daab5`的site_config/sites以及NexusPHP公共配置，原署名/条款见LICENSE.pre-dessert-sites。TTG search_field/c=M交叉核对MoviePilot提交`6ef8408f432dde643aee2ba7078f59d2776f84ce`的test_indexer_spider_search_url.py；未复制其运行代码。模板由本仓库发布，主程序只内置仓库和解析能力；保留来源许可是授权义务，不是旧格式兼容。
+选择器改写自mantou568/pre-dessert-sites提交`37bf5c5064ae437f54e26b57406ca84d480daab5`的site_config/sites以及NexusPHP公共配置，原署名/条款见LICENSE.pre-dessert-sites。TTG search_field/c=M交叉核对MoviePilot提交`6ef8408f432dde643aee2ba7078f59d2776f84ce`的test_indexer_spider_search_url.py；未复制其运行代码。模板由本仓库发布，主程序只内置仓库和解析能力；保留来源许可是授权义务，不是旧格式兼容。

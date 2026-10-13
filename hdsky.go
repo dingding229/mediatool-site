@@ -7,7 +7,7 @@ func hdsky() Template {
 	search := t.Definition["requests"].(Map)["search"].(Map)
 	search["list"].(Map)["empty_evidence"] = Map{
 		"selector":      `td.text:contains("没有种子。请用准确的关键字重试。")`,
-		"authenticated": `a[href*="logout"], a[href*="usercp"]`,
+		"authenticated": `a[href*="logout"], a[href*="usercp"], a[data-url*="logout"], a[onclick*="logout"], a[href*="mybonus"], form[action*="logout"]`,
 	}
 	return t
 }

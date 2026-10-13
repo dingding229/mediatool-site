@@ -7,3 +7,7 @@
 内部Snapshot只用于数据库持久化及测试，不是对外JSON模板。改站点代码后先运行go test ./...，再发布提交，由主程序更新固定模块版本并经Actions构建部署。
 
 来源选择器改写自mantou568/pre-dessert-sites提交37bf5c5064ae437f54e26b57406ca84d480daab5，保留原署名和条款于LICENSE.pre-dessert-sites。TTG参数参考MoviePilot对应测试，未复制其运行代码。模板格式不兼容原配置库；保留许可不代表旧格式兼容。
+
+## Template metadata
+
+Each compiled template carries an independent semantic `Version` (currently 1.1.0), `Domain`, and `IconURL`. The host displays the full catalog but loads only administrator-selected templates. Shared request builders in `common.go` are grouped by login, user details, search, and seeding statistics; per-site files override only site-specific rules. Parser snapshot format version is separate from template release version.

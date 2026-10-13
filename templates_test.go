@@ -9,7 +9,7 @@ import (
 func TestCompiledSiteDefinitions(t *testing.T) {
 	seen := map[string]bool{}
 	for _, s := range All() {
-		if seen[s.ID] || s.Name != strings.ToUpper(s.Name) || s.Domain == "" {
+		if seen[s.ID] || s.Name != strings.ToUpper(s.Name) || s.Domain == "" || s.Version == "" || s.IconURL != s.Domain+"/favicon.ico" {
 			t.Fatal(s.ID)
 		}
 		seen[s.ID] = true

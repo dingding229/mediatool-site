@@ -1,5 +1,411 @@
 package mediatoolsite
 
 func commonRequests() Map {
-	return Map{"user_basic_info": Map{"parser": "XPath", "method": "GET", "path": "", "fields": Map{"is_login": Map{"any": []any{Map{"selector": "//a[contains(@href, 'logout')]/text()"}, Map{"selector": "//a[contains(@data-url, 'logout')]/text()"}, Map{"selector": "//a[contains(@href, 'mybonus')]/text()"}, Map{"selector": "//a[contains(@onclick, 'logout')]/text()"}, Map{"selector": "//a[contains(@href, 'usercp')]/text()"}, Map{"selector": "//form[contains(@action, 'logout')]/text()"}, Map{"selector": "//div[@class='user-info-side']/text()"}}, "filters": []any{Map{"name": "not_blank"}}}, "id": Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "re_search", "args": []any{"userdetails.php\\?id=(\\d+)", 1}}}}, "name": Map{"any": []any{Map{"selector": "//a[contains(@href, 'userdetails')]//b//text()"}, Map{"selector": "//a[contains(@href, 'userdetails')]//text()"}, Map{"selector": "//a[contains(@href, 'userdetails')]//strong//text()"}}}, "uploaded": Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "re_search", "args": []any{"[^总]上[传傳]量?[:：_<>/a-zA-Z-=''\\s#;]+([\\d,.\\s]+(?i)[KMGTPI]*B)", 1}}, Map{"name": "byte_size"}}}, "downloaded": Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "re_search", "args": []any{"[^总子影力]下[载載]量?[:：_<>/a-zA-Z-=''\\s#;]+([\\d,.\\s]+(?i)[KMGTPI]*B)", 1}}, Map{"name": "byte_size"}}}, "ratio": Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "replace", "args": []any{"无限", ""}}, Map{"name": "replace", "args": []any{"无穷", ""}}, Map{"name": "replace", "args": []any{"∞", ""}}, Map{"name": "replace", "args": []any{"Infinity", ""}}, Map{"name": "replace", "args": []any{"infinity", ""}}, Map{"name": "replace", "args": []any{"Inf", ""}}, Map{"name": "replace", "args": []any{"inf", ""}}, Map{"name": "re_search", "args": []any{"分享率[:：_<>/a-zA-Z-=\\\"'\\s#;]+([\\d,.\\s]+)", 1}}}}, "bonus": Map{"any": []any{Map{"selector": "//a[contains(@href,'mybonus') or contains(@href,'bonus.php')]/text()", "filters": []any{Map{"name": "re_search", "args": []any{"([\\d,.]+)", 1}}}}, Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "re_search", "args": []any{"mybonus.[\\[\\]:：<>/a-zA-Z_\\-=''\\s#;.(使用魔力值豆]+\\s*([\\d,.]+)[<()&\\s\\[]", 1}}}}, Map{"selector": "*", "selection": "html", "filters": []any{Map{"name": "re_search", "args": []any{"[魔力值|\\]][\\[\\]:：<>/a-zA-Z_\\-=''\\s#;]+\\s*([\\d,.]+|\\'[\\d,.]+')[<>()&\\s\\[]", 1}}}}}}}}, "user_details": Map{"parser": "XPath", "method": "GET", "path": "/userdetails.php?id={userId}", "fields": Map{"level": Map{"any": []any{Map{"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1]/img[1]/@title"}, Map{"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1 and not(img)]|//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1 and img[not(@title)]]"}, Map{"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1]"}, Map{"selector": "//a[contains(@href, 'userdetails')]/text()", "filters": []any{Map{"name": "re_search", "args": []any{"\\[(.*)]", 1}}}}}}}}, "search": Map{"parser": "CssSelector", "method": "GET", "path": "/torrents.php", "params": Map{"search": []any{"{keyword}"}}, "list": Map{"selector": "table.torrents tr:has(table.torrentname)", "next_page": Map{"selector": "a[href*=\"torrents.php\"][rel=\"next\"], a[href*=\"torrents.php\"]:contains(\"下一页\"), a[href*=\"torrents.php\"]:contains(\"下一頁\")", "attribute": "href"}, "container": "table.torrents"}, "fields": Map{"id": Map{"selector": "a[href*='details.php?id=']", "attribute": "href", "filters": []any{Map{"name": "re_search", "args": []any{"\\d+", 0}}}}, "title": Map{"any": []any{Map{"selector": "a[title][href*='details.php?id=']", "attribute": "title"}, Map{"selector": "a[href*='details.php?id=']"}}}, "details": Map{"selector": "a[href*='details.php?id=']", "attribute": "href"}, "download": Map{"selector": "form[action*='/download.php?id=']", "attribute": "action"}, "size": Map{"selector": "td:nth-child(5):not(.embedded)", "filters": []any{Map{"name": "byte_size"}}}, "seeders": Map{"selector": "td:nth-child(6):not(.embedded)"}, "leechers": Map{"selector": "td:nth-child(7):not(.embedded)"}, "downloadvolumefactor": Map{"any": []any{Map{"selector": "img.pro_free,img.pro_free2up", "attribute": "class", "filters": []any{Map{"name": "not_blank", "args": []any{0, ""}}}}, Map{"selector": "img.pro_50pctdown,img.pro_50pctdown2up", "attribute": "class", "filters": []any{Map{"name": "not_blank", "args": []any{0.5, ""}}}}, Map{"selector": "img.pro_30pctdown", "attribute": "class", "filters": []any{Map{"name": "not_blank", "args": []any{0.3, ""}}}}}}, "description": Map{"any": []any{Map{"selector": "td:nth-child(2) > table.torrentname > tbody > tr > td.embedded > span:not(.optiontag)", "remove": "img,a,b"}, Map{"selector": "td:nth-child(2) > table.torrentname > tr > td.embedded > span:not(.optiontag)", "remove": "img,a,b"}}, "filters": []any{Map{"name": "replace", "args": []any{"[优惠剩余时间：]", ""}}}}, "labels": Map{"array": true, "selector": "td:nth-child(2) > table.torrentname > tbody > tr > td.embedded > span.optiontag, td:nth-child(2) > table.torrentname > tr > td.embedded > span.optiontag"}}}, "seeding_statistics": Map{"parser": "XPath", "method": "GET", "path": "/getusertorrentlistajax.php?userid={userId}&type=seeding", "headers": Map{"Referer": "{domain}/userdetails.php?id={userId}"}, "list": Map{"selector": "//tr[position()>1]", "next_page": Map{"selector": "//a[contains(.//text(), '下一页') or contains(.//text(), '下一頁')]/@href"}}, "fields": Map{"size": Map{"selector": "/td[3]", "filters": []any{Map{"name": "byte_size"}}}}}}
+	return Map{
+		"user_basic_info":    commonUserBasicInfo(),
+		"user_details":       commonUserDetails(),
+		"search":             commonSearch(),
+		"seeding_statistics": commonSeedingStatistics(),
+	}
+}
+
+func commonUserBasicInfo() Map {
+	return Map{
+		"parser": "XPath",
+		"method": "GET",
+		"path":   "",
+		"fields": Map{
+			"is_login": Map{
+				"any": []any{
+					Map{
+						"selector": "//a[contains(@href, 'logout')]/text()",
+					},
+					Map{
+						"selector": "//a[contains(@data-url, 'logout')]/text()",
+					},
+					Map{
+						"selector": "//a[contains(@href, 'mybonus')]/text()",
+					},
+					Map{
+						"selector": "//a[contains(@onclick, 'logout')]/text()",
+					},
+					Map{
+						"selector": "//a[contains(@href, 'usercp')]/text()",
+					},
+					Map{
+						"selector": "//form[contains(@action, 'logout')]/text()",
+					},
+					Map{
+						"selector": "//div[@class='user-info-side']/text()",
+					},
+				},
+				"filters": []any{
+					Map{
+						"name": "not_blank",
+					},
+				},
+			},
+			"id": Map{
+				"selector":  "*",
+				"selection": "html",
+				"filters": []any{
+					Map{
+						"name": "re_search",
+						"args": []any{
+							"userdetails.php\\?id=(\\d+)",
+							1,
+						},
+					},
+				},
+			},
+			"name": Map{
+				"any": []any{
+					Map{
+						"selector": "//a[contains(@href, 'userdetails')]//b//text()",
+					},
+					Map{
+						"selector": "//a[contains(@href, 'userdetails')]//text()",
+					},
+					Map{
+						"selector": "//a[contains(@href, 'userdetails')]//strong//text()",
+					},
+				},
+			},
+			"uploaded": Map{
+				"selector":  "*",
+				"selection": "html",
+				"filters": []any{
+					Map{
+						"name": "re_search",
+						"args": []any{
+							"[^总]上[传傳]量?[:：_<>/a-zA-Z-=''\\s#;]+([\\d,.\\s]+(?i)[KMGTPI]*B)",
+							1,
+						},
+					},
+					Map{
+						"name": "byte_size",
+					},
+				},
+			},
+			"downloaded": Map{
+				"selector":  "*",
+				"selection": "html",
+				"filters": []any{
+					Map{
+						"name": "re_search",
+						"args": []any{
+							"[^总子影力]下[载載]量?[:：_<>/a-zA-Z-=''\\s#;]+([\\d,.\\s]+(?i)[KMGTPI]*B)",
+							1,
+						},
+					},
+					Map{
+						"name": "byte_size",
+					},
+				},
+			},
+			"ratio": Map{
+				"selector":  "*",
+				"selection": "html",
+				"filters": []any{
+					Map{
+						"name": "replace",
+						"args": []any{
+							"无限",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"无穷",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"∞",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"Infinity",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"infinity",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"Inf",
+							"",
+						},
+					},
+					Map{
+						"name": "replace",
+						"args": []any{
+							"inf",
+							"",
+						},
+					},
+					Map{
+						"name": "re_search",
+						"args": []any{
+							"分享率[:：_<>/a-zA-Z-=\\\"'\\s#;]+([\\d,.\\s]+)",
+							1,
+						},
+					},
+				},
+			},
+			"bonus": Map{
+				"any": []any{
+					Map{
+						"selector": "//a[contains(@href,'mybonus') or contains(@href,'bonus.php')]/text()",
+						"filters": []any{
+							Map{
+								"name": "re_search",
+								"args": []any{
+									"([\\d,.]+)",
+									1,
+								},
+							},
+						},
+					},
+					Map{
+						"selector":  "*",
+						"selection": "html",
+						"filters": []any{
+							Map{
+								"name": "re_search",
+								"args": []any{
+									"mybonus.[\\[\\]:：<>/a-zA-Z_\\-=''\\s#;.(使用魔力值豆]+\\s*([\\d,.]+)[<()&\\s\\[]",
+									1,
+								},
+							},
+						},
+					},
+					Map{
+						"selector":  "*",
+						"selection": "html",
+						"filters": []any{
+							Map{
+								"name": "re_search",
+								"args": []any{
+									"[魔力值|\\]][\\[\\]:：<>/a-zA-Z_\\-=''\\s#;]+\\s*([\\d,.]+|\\'[\\d,.]+')[<>()&\\s\\[]",
+									1,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func commonUserDetails() Map {
+	return Map{
+		"parser": "XPath",
+		"method": "GET",
+		"path":   "/userdetails.php?id={userId}",
+		"fields": Map{
+			"level": Map{
+				"any": []any{
+					Map{
+						"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1]/img[1]/@title",
+					},
+					Map{
+						"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1 and not(img)]|//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1 and img[not(@title)]]",
+					},
+					Map{
+						"selector": "//tr/td[contains(text(), '等級') or contains(text(), '等级')]/following-sibling::td[1]",
+					},
+					Map{
+						"selector": "//a[contains(@href, 'userdetails')]/text()",
+						"filters": []any{
+							Map{
+								"name": "re_search",
+								"args": []any{
+									"\\[(.*)]",
+									1,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func commonSearch() Map {
+	return Map{
+		"parser": "CssSelector",
+		"method": "GET",
+		"path":   "/torrents.php",
+		"params": Map{
+			"search": []any{
+				"{keyword}",
+			},
+		},
+		"list": Map{
+			"selector": "table.torrents tr:has(table.torrentname)",
+			"next_page": Map{
+				"selector":  "a[href*=\"torrents.php\"][rel=\"next\"], a[href*=\"torrents.php\"]:contains(\"下一页\"), a[href*=\"torrents.php\"]:contains(\"下一頁\")",
+				"attribute": "href",
+			},
+			"container": "table.torrents",
+		},
+		"fields": Map{
+			"id": Map{
+				"selector":  "a[href*='details.php?id=']",
+				"attribute": "href",
+				"filters": []any{
+					Map{
+						"name": "re_search",
+						"args": []any{
+							"\\d+",
+							0,
+						},
+					},
+				},
+			},
+			"title": Map{
+				"any": []any{
+					Map{
+						"selector":  "a[title][href*='details.php?id=']",
+						"attribute": "title",
+					},
+					Map{
+						"selector": "a[href*='details.php?id=']",
+					},
+				},
+			},
+			"details": Map{
+				"selector":  "a[href*='details.php?id=']",
+				"attribute": "href",
+			},
+			"download": Map{
+				"selector":  "form[action*='/download.php?id=']",
+				"attribute": "action",
+			},
+			"size": Map{
+				"selector": "td:nth-child(5):not(.embedded)",
+				"filters": []any{
+					Map{
+						"name": "byte_size",
+					},
+				},
+			},
+			"seeders": Map{
+				"selector": "td:nth-child(6):not(.embedded)",
+			},
+			"leechers": Map{
+				"selector": "td:nth-child(7):not(.embedded)",
+			},
+			"downloadvolumefactor": Map{
+				"any": []any{
+					Map{
+						"selector":  "img.pro_free,img.pro_free2up",
+						"attribute": "class",
+						"filters": []any{
+							Map{
+								"name": "not_blank",
+								"args": []any{
+									0,
+									"",
+								},
+							},
+						},
+					},
+					Map{
+						"selector":  "img.pro_50pctdown,img.pro_50pctdown2up",
+						"attribute": "class",
+						"filters": []any{
+							Map{
+								"name": "not_blank",
+								"args": []any{
+									0.5,
+									"",
+								},
+							},
+						},
+					},
+					Map{
+						"selector":  "img.pro_30pctdown",
+						"attribute": "class",
+						"filters": []any{
+							Map{
+								"name": "not_blank",
+								"args": []any{
+									0.3,
+									"",
+								},
+							},
+						},
+					},
+				},
+			},
+			"description": Map{
+				"any": []any{
+					Map{
+						"selector": "td:nth-child(2) > table.torrentname > tbody > tr > td.embedded > span:not(.optiontag)",
+						"remove":   "img,a,b",
+					},
+					Map{
+						"selector": "td:nth-child(2) > table.torrentname > tr > td.embedded > span:not(.optiontag)",
+						"remove":   "img,a,b",
+					},
+				},
+				"filters": []any{
+					Map{
+						"name": "replace",
+						"args": []any{
+							"[优惠剩余时间：]",
+							"",
+						},
+					},
+				},
+			},
+			"labels": Map{
+				"array":    true,
+				"selector": "td:nth-child(2) > table.torrentname > tbody > tr > td.embedded > span.optiontag, td:nth-child(2) > table.torrentname > tr > td.embedded > span.optiontag",
+			},
+		},
+	}
+}
+
+func commonSeedingStatistics() Map {
+	return Map{
+		"parser": "XPath",
+		"method": "GET",
+		"path":   "/getusertorrentlistajax.php?userid={userId}&type=seeding",
+		"headers": Map{
+			"Referer": "{domain}/userdetails.php?id={userId}",
+		},
+		"list": Map{
+			"selector": "//tr[position()>1]",
+			"next_page": Map{
+				"selector": "//a[contains(.//text(), '下一页') or contains(.//text(), '下一頁')]/@href",
+			},
+		},
+		"fields": Map{
+			"size": Map{
+				"selector": "/td[3]",
+				"filters": []any{
+					Map{
+						"name": "byte_size",
+					},
+				},
+			},
+		},
+	}
 }
